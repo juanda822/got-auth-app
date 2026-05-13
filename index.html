@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game of Thrones — Portal de Westeros</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>" />
+</head>
+<body>
+
+  <!-- Partículas de fondo -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ══════════════════════════════
+       PANTALLA: LOGIN
+  ══════════════════════════════ -->
+  <div class="screen active" id="screen-login">
+    <div class="card">
+      <div class="card-header">
+        <div class="got-icon">
+          <!-- Ícono identificativo: Escudo con espada SVG -->
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sg1" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#c9a84c"/>
+                <stop offset="100%" stop-color="#7a5c1e"/>
+              </radialGradient>
+              <radialGradient id="gemG1" cx="40%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#ff6b6b"/>
+                <stop offset="100%" stop-color="#8b0000"/>
+              </radialGradient>
+            </defs>
+            <path d="M20 15 L100 15 L100 75 L60 110 L20 75 Z" fill="url(#sg1)" stroke="#c9a84c" stroke-width="2"/>
+            <path d="M27 22 L93 22 L93 72 L60 102 L27 72 Z" fill="none" stroke="#f0d060" stroke-width="1.5" opacity="0.6"/>
+            <rect x="57.5" y="28" width="5" height="50" fill="#e8e8e8" rx="1"/>
+            <rect x="55" y="32" width="10" height="3" fill="#c9a84c" rx="1"/>
+            <circle cx="60" cy="33.5" r="5" fill="url(#gemG1)"/>
+            <circle cx="60" cy="33.5" r="2" fill="#ff9999" opacity="0.7"/>
+            <circle cx="35" cy="40" r="4" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <circle cx="85" cy="40" r="4" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+            <line x1="39" y1="40" x2="53" y2="40" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
+            <line x1="67" y1="40" x2="81" y2="40" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
+          </svg>
+        </div>
+        <h1 class="title">Portal de Westeros</h1>
+        <p class="subtitle">Inicia sesión para explorar los Siete Reinos</p>
+      </div>
+
+      <div class="card-body">
+        <div id="login-error" class="error-msg hidden"></div>
+
+        <div class="input-group">
+          <label for="login-user">Nombre del Maestre</label>
+          <input type="text" id="login-user" placeholder="Ej: jonsnow" autocomplete="username"/>
+        </div>
+
+        <div class="input-group">
+          <label for="login-pass">Contraseña Secreta</label>
+          <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+
+        <button class="btn-primary" onclick="handleLogin()">
+          <span>Entrar al Reino</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="divider"><span>¿Nuevo en Westeros?</span></div>
+
+        <button class="btn-secondary" onclick="showScreen('register')">Crear Cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       PANTALLA: REGISTRO
+  ══════════════════════════════ -->
+  <div class="screen" id="screen-register">
+    <div class="card">
+      <div class="card-header">
+        <div class="got-icon small">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sg2" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#c9a84c"/>
+                <stop offset="100%" stop-color="#7a5c1e"/>
+              </radialGradient>
+            </defs>
+            <path d="M20 15 L100 15 L100 75 L60 110 L20 75 Z" fill="url(#sg2)" stroke="#c9a84c" stroke-width="2"/>
+            <path d="M27 22 L93 22 L93 72 L60 102 L27 72 Z" fill="none" stroke="#f0d060" stroke-width="1.5" opacity="0.6"/>
+            <rect x="57.5" y="28" width="5" height="50" fill="#e8e8e8" rx="1"/>
+            <rect x="55" y="32" width="10" height="3" fill="#c9a84c" rx="1"/>
+            <circle cx="60" cy="33.5" r="5" fill="#8b0000"/>
+            <circle cx="60" cy="33.5" r="2" fill="#ff9999" opacity="0.7"/>
+          </svg>
+        </div>
+        <h1 class="title">Unirse a Westeros</h1>
+        <p class="subtitle">Crea tu identidad en los Siete Reinos</p>
+      </div>
+
+      <div class="card-body">
+        <div id="register-error" class="error-msg hidden"></div>
+        <div id="register-success" class="success-msg hidden"></div>
+
+        <div class="input-group">
+          <label for="reg-nombre">Nombre Completo</label>
+          <input type="text" id="reg-nombre" placeholder="Ej: Arya Stark"/>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-user">Nombre de Usuario</label>
+          <input type="text" id="reg-user" placeholder="Ej: aryastark"/>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-casa">Casa Elegida</label>
+          <select id="reg-casa">
+            <option value="">— Elige tu Casa —</option>
+            <option value="Stark">⚔️ Casa Stark</option>
+            <option value="Lannister">👑 Casa Lannister</option>
+            <option value="Targaryen">🐉 Casa Targaryen</option>
+            <option value="Baratheon">🦌 Casa Baratheon</option>
+            <option value="Greyjoy">🐙 Casa Greyjoy</option>
+            <option value="Tyrell">🌹 Casa Tyrell</option>
+            <option value="Martell">🌞 Casa Martell</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-pass">Contraseña</label>
+          <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"/>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-pass2">Confirmar Contraseña</label>
+          <input type="password" id="reg-pass2" placeholder="Repite tu contraseña"/>
+        </div>
+
+        <button class="btn-primary" onclick="handleRegister()">
+          <span>Jurar Lealtad</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+
+        <div class="divider"><span>¿Ya tienes cuenta?</span></div>
+
+        <button class="btn-secondary" onclick="showScreen('login')">Iniciar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       PANTALLA: DASHBOARD
+  ══════════════════════════════ -->
+  <div class="screen" id="screen-dashboard">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <svg class="nav-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 8 L50 8 L50 38 L30 56 L10 38 Z" fill="#c9a84c" stroke="#f0d060" stroke-width="1.5"/>
+          <rect x="28" y="14" width="4" height="26" fill="#e8e8e8" rx="1"/>
+          <rect x="25.5" y="17" width="9" height="2.5" fill="#c9a84c" rx="1"/>
+          <circle cx="30" cy="17" r="3.5" fill="#8b0000"/>
+        </svg>
+        <span>Portal de Westeros</span>
+      </div>
+      <div class="nav-user">
+        <div class="user-badge" id="user-badge">
+          <span id="user-initial">?</span>
+        </div>
+        <span id="nav-username">Invitado</span>
+        <span id="nav-casa" class="casa-tag"></span>
+        <button class="btn-logout" onclick="handleLogout()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+          </svg>
+          Salir
+        </button>
+      </div>
+    </nav>
+
+    <div class="dashboard-container">
+      <div class="welcome-banner">
+        <h2 id="welcome-msg">Bienvenido, Viajero</h2>
+        <p id="welcome-sub">Explorando los Siete Reinos de Westeros</p>
+      </div>
+
+      <div class="api-section">
+        <div class="section-header">
+          <h3>⚔️ Personajes de Westeros</h3>
+          <p>Datos en tiempo real desde la API de Game of Thrones</p>
+        </div>
+
+        <div class="filter-bar">
+          <input type="text" id="search-char" placeholder="🔍 Buscar personaje..." oninput="filterCharacters()"/>
+          <button class="btn-refresh" onclick="loadCharacters()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6M1 20v-6h6"/>
+              <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+            </svg>
+            Recargar
+          </button>
+        </div>
+
+        <div id="characters-loading" class="loading-state">
+          <div class="spinner"></div>
+          <p>Invocando personajes desde el Muro...</p>
+        </div>
+
+        <div id="characters-error" class="error-state hidden">
+          <p>🐉 No se pudo conectar con los Cuervos. Intenta de nuevo.</p>
+          <button class="btn-secondary small" onclick="loadCharacters()">Reintentar</button>
+        </div>
+
+        <div id="characters-grid" class="characters-grid hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
